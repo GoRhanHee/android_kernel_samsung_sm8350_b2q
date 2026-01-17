@@ -31,7 +31,7 @@ MAKE_ARGS="
 LLVM=1 \
 LLVM_IAS=1 \
 ARCH=arm64 \
-READELF=${CLANG_DIR}/bin/llvm-readelf \
+CC=clang \
 $KERNEL_MAKE_ENV \
 CROSS_COMPILE=${GCC_DIR}/bin/aarch64-linux-gnu- \
 CLANG_TRIPLE=aarch64-linux-gnu- \
