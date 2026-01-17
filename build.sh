@@ -60,3 +60,28 @@ make ${MAKE_ARGS} || exit 1
 # Cooking Kernel module
 export MODULE_DIR=${ANDROID_BUILD_TOP}/out/modules_out
 make ${MAKE_ARGS} INSTALL_MOD_PATH=${MODULE_DIR} INSTALL_MOD_STRIP=1 modules_install || exit 1
+
+# ***************** Cooking flashable files code **************************
+mkdir prebuilts/output
+chmod +x ${ANDROID_BUILD_TOP}/prebuilts/*
+
+cd ${ANDROID_BUILD_TOP}/prebuilts
+
+# Cooking dtbo.img
+./mkdtimg cfg_create ${ANDROID_BUILD_TOP}/prebuilts/output/dtbo.img ${ANDROID_BUILD_TOP}/prebuilts/dtbo.cfg -d ${ANDROID_BUILD_TOP}/out/arch/arm64/boot/dts/samsung/b2/b2q
+
+# Cooking boot.img
+unzip -jo ${ANDROID_BUILD_TOP}/prebuilts/boot.zip boot.img -d ${ANDROID_BUILD_TOP}/prebuilts/
+./magiskboot unpack boot.img
+cp ${ANDROID_BUILD_TOP}/out/arch/arm64/boot/Image ${ANDROID_BUILD_TOP}/prebuilts/kernel
+./magiskboot repack boot.img
+cp ${ANDROID_BUILD_TOP}/prebuilts/new-boot.img ${ANDROID_BUILD_TOP}/prebuilts/output/boot.img
+
+# Copying patched vbmeta.img
+cp ${ANDROID_BUILD_TOP}/prebuilts/vbmeta.img ${ANDROID_BUILD_TOP}/prebuilts/output/vbmeta.img
+
+# Cooking flashable file
+cd ${ANDROID_BUILD_TOP}/prebuilts/output
+tar -cvf "F711N_KSUN_Odin.tar" boot.img dtbo.img vbmeta.img
+
+# ***************** Cooking flashable files code **************************

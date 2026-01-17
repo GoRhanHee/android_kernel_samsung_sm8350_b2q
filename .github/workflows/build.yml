@@ -41,3 +41,17 @@ jobs:
 
       - name: "Build for specific device"
         run: ./build.sh ${{ github.event.inputs.Option }}
+
+      - name: Upload Artifacts Kernel File
+        uses: actions/upload-artifact@v4
+        with:
+          name: "Flip3_Kernel_File"
+          path: |
+            ./prebuilts/output/*
+  
+      - name: Upload Artifacts Kernel OutPut File
+        uses: actions/upload-artifact@v4
+        with:
+          name: "Flip3_Kernel_OUTPUT_File"
+          path: |
+            ./out/*          
