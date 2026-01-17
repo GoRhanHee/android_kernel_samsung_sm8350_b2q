@@ -45,10 +45,10 @@ $KERNEL_MAKE_ENV \
 O=out
 "
 
-DEFCONFIG="vendor/b2q_kor_singlex_defconfig gorhanhee.config"
+DEFCONFIG="vendor/b2q_kor_singlex_defconfig vendor/gorhanhee.config"
 
 if [ "${KSU}" == "y" ]; then
-    CONFIGS="${DEFCONFIG} kernelsu.config"
+    CONFIGS="${DEFCONFIG} vendor/kernelsu.config"
 else
     CONFIGS="${DEFCONFIG}"
 fi
