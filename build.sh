@@ -54,3 +54,7 @@ fi
 
 make ${MAKE_ARGS} ${CONFIGS} || exit 1
 make ${MAKE_ARGS} || exit 1
+
+# Cooking Kernel module
+export MODULE_DIR=${ANDROID_BUILD_TOP}/out/modules_out
+make ${MAKE_ARGS} INSTALL_MOD_PATH=${MODULE_DIR} INSTALL_MOD_STRIP=1 modules_install || exit 1
