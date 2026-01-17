@@ -26,6 +26,7 @@ export PRODUCT_NAME=b2q
 
 # Cooking Kernel Source
 MAKE_ARGS="
+-j16 \
 LLVM=1 \
 LLVM_IAS=1 \
 ARCH=arm64 \
