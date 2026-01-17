@@ -132,7 +132,7 @@ static ssize_t hdm_policy_store(struct device *dev,
 
 	hdm_info("%s m:0x%x c:0x%x p:0x%x\n", __func__, (int)mode, c, p);
 	switch (c) {
-#if defined(CONFIG_ARCH_QCOM)
+#if defined(CONFIG_FASTUH)
 	case HDM_HYP_CALL:
 		hdm_info("%s HDM_HYP_CALL\n", __func__);
 		fastuh_call(FASTUH_APP_HDM, 9, 0, p, 0, 0);
@@ -152,7 +152,9 @@ error:
 static void get_supported_subsystem(void)
 {
 	if (is_hdm_initialized != true) {
+#if defined(CONFIG_FASTUH)		
 		fastuh_call(FASTUH_APP_HDM, HDM_GET_SUPPORTED_SUBSYSTEM, (u64)&supported_subsystem, (u64)&block_type_bit, 0, 0);
+#endif		
 		hdm_info("supported_subsystem = %06llx\n", supported_subsystem);
 		hdm_info("block_type_bit = %06llx\n", block_type_bit);
 		is_hdm_initialized = true;
