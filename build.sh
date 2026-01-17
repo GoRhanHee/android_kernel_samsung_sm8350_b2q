@@ -23,6 +23,8 @@ PATH=$CLANG_DIR/bin:$CLANG_DIR/lib:$GCC_DIR/bin:$GCC_DIR/lib:$PATH
 # OEM Setting
 export ARCH=arm64
 export PRODUCT_NAME=b2q
+CLANG_TRIPLE=aarch64-linux-gnu-
+KERNEL_MAKE_ENV="DTC_EXT=$(pwd)/tools/dtc CONFIG_BUILD_ARM64_DT_OVERLAY=y"
 
 # Cooking Kernel Source
 MAKE_ARGS="
@@ -32,6 +34,8 @@ LLVM_IAS=1 \
 ARCH=arm64 \
 READELF=$CLANG_DIR/bin/llvm-readelf \
 CROSS_COMPILE=$GCC_DIR/bin/aarch64-linux-gnu- \
+$KERNEL_MAKE_ENV \
+CLANG_TRIPLE=aarch64-linux-gnu- \
 O=out
 "
 
