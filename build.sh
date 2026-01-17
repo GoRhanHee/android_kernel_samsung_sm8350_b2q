@@ -33,6 +33,8 @@ fi
 export ARCH=arm64
 export PRODUCT_NAME=b2q
 
+mkdir out
+
 # Cooking Kernel Source
 MAKE_ARGS="
 -j16 \
